@@ -6,9 +6,9 @@ import pandas as pd
 import time
 import numpy as np
 
-output = 'F:/MyCode/MyPython/preCalculate/OKCSV/'
-outputs = 'F:/MyCode/MyPython/preCalculate/ExtractCSV/'
-result='F:/MyCode/MyPython/preCalculate/result/'
+output = 'F:/github/LSTM_AM_time_series_data/preCalculate/OKCSV/'
+outputs = 'F:/github/LSTM_AM_time_series_data/preCalculate/ExtractCSV/'
+result='F:/github/LSTM_AM_time_series_data/preCalculate/result/'
 
 suffix = ['11.03', '11.04', '11.05', '11.06', '11.07', '11.08', '11.09', '11.10',
               '11.11', '11.12', '11.15', '11.16', '11.17', '11.18',
@@ -19,7 +19,8 @@ suffix = ['11.03', '11.04', '11.05', '11.06', '11.07', '11.08', '11.09', '11.10'
 Interval = 70
 
 def convertRPT():
-    """"
+    """
+    :return:
     转化文件格式只适用于python2.7
     """
     p = Path("F:/MyCode/MyPython/preCalculate/")  # 初始化构造Path对象
@@ -37,8 +38,12 @@ def convertRPT():
 
 
 def ExtractDatas(filename,outFile):
-    """"
-        提取感兴趣的列"""
+    """
+    :param filename: 输入文件名
+    :param outFile: 输出文件名
+    :return:
+    提取感兴趣的列
+    """
     data = pd.read_csv(filename, low_memory=False)  # 读取csv文件
 
     # "气垫仓压力和泥浆液位，贯入度,刀盘扭矩,刀盘转速,总推进力,推进速度,进浆流量,出浆流量。"
@@ -56,10 +61,14 @@ def ExtractDatas(filename,outFile):
 
 
 def ExcavationData(period, step,resultname):
-    """"第一个参数表示窗口的大小，
-        第二个参数表示窗口移动距离
-        第三个参数表示输出文件
     """
+    :param period: 表示窗口的大小，
+    :param step: 表示窗口移动距离
+    :param resultname: 表示输出文件
+    :return:
+    最后提取时序数据
+    """
+
     filename = outputs + resultname
     data = pd.read_csv(filename, low_memory=False)  # 读取csv文件
     print("数据行数"+str(data.shape[0]))

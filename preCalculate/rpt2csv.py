@@ -36,6 +36,11 @@ def convert(inputFile, outputFile):
 
 
 def getFieldIndexes(input, sep):
+    """
+    :param input:
+    :param sep:
+    :return:
+    """
     lastIndex = 0
     for idx, c in enumerate(input):
         if (c == sep):
@@ -45,6 +50,11 @@ def getFieldIndexes(input, sep):
 
 
 def getFields(input, indexes):
+    """
+    :param input:
+    :param indexes:
+    :return:
+    """
     for index in indexes:
         yield input[index[0]:index[1]].strip()
 
