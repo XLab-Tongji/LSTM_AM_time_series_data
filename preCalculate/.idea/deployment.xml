@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" serverName="serveradmin@10.60.38.173:22" remoteFilesAllowedToDisappearOnAutoupload="false">
+    <serverData>
+      <paths name="serveradmin@10.60.38.173:22">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/ZhangShuangli/python/app/pytorch-lstm-am" local="$PROJECT_DIR$" web="http:///" />
+          </mappings>
+          <excludedPaths>
+            <excludedPath path="/ZhangShuangli/python/app/pytorch-lstm-am/data" />
+          </excludedPaths>
+        </serverdata>
+      </paths>
+      <paths name="serveradmin@10.60.38.173:22 (1)">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/tmp/pycharm_project_681" local="$PROJECT_DIR$" web="http:///" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+  </component>
+</project>
