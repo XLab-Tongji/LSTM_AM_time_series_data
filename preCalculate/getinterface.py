@@ -15,7 +15,7 @@ Interesting = ['t', '100006', '101465', '860424', '100395',
 
 payloadsome = "(([t]>'2020/12/07 00:00:00') and ([t]<'2020/12/07 23:59:59') and ([wm]>0))"
 
-outputs = 'F:/github/LSTM_AM_time_series_data/preCalculate/ExtractCSV/'
+outputs = '../Data/ExtractCSV/'
 
 
 def analyze_data(data, result):
