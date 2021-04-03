@@ -13,7 +13,7 @@ headers = {
 Interesting = ['t', '100006', '101465', '860424', '100395',
              '100004', '100003', '100005', '100002', '101403', '101404']
 
-payloadsome = "(([t]>'2020/12/07 00:00:00') and ([t]<'2020/12/07 23:59:59') and ([wm]>0))"
+payloadsome = "(([t]>'2021/01/31 00:00:00') and ([t]<'2021/01/31 23:59:59') and ([wm]>0))"
 
 outputs = '../Data/ExtractCSV/'
 
@@ -59,8 +59,8 @@ def ExtractDatas(data,outFile):
 if __name__ == '__main__':
 
     # now1 = datetime.datetime.now().date().strftime('%Y/%m/%d')
-    now1 = datetime.date(2020, 12, 10).strftime('%Y/%m/%d')
-    start1 = datetime.date(2020, 12, 7).strftime('%Y/%m/%d')
+    now1 = datetime.date(2021, 3, 31).strftime('%Y/%m/%d')
+    start1 = datetime.date(2021, 1, 31).strftime('%Y/%m/%d')
 
     holiday = pd.date_range(start1,now1).strftime("%Y/%m/%d").to_list()
     FileList = pd.date_range(start1,now1).strftime("%Y.%m.%d").to_list()

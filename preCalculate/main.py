@@ -6,7 +6,7 @@ import time
 import datetime
 import numpy as np
 
-output = './OKCSV/'
+output = '../Data/OKCSV/'
 outputs = '../Data/ExtractCSV/'
 result = '../Data/result/'
 
@@ -16,7 +16,7 @@ suffix = ['11.03', '11.04', '11.05', '11.06', '11.07', '11.08', '11.09', '11.10'
               '11.27', '11.28', '11.29', '11.30', '12.01', '12.02', '12.03', '12.04',
               '12.05', '12.06', '12.07']
 
-payloadsome = "2020.12.07"
+payloadsome = "2020.11.02"
 
 Interval = 70
 
@@ -25,7 +25,7 @@ def convertRPT():
     :return:
     转化文件格式只适用于python2.7
     """
-    p = Path("./")  # 初始化构造Path对象
+    p = Path("../")  # 初始化构造Path对象
 
     FileList = list(p.glob("**/*.rpt"))  # 得到所有的markdown文件
 
@@ -70,6 +70,9 @@ def ExcavationData(period, step, resultname):
     :return:
     最后提取时序数据
     """
+    Blank=['2020.11.13.csv', '2020.11.14.csv']
+    if resultname in Blank:
+        return
     filename = outputs + resultname
     data = pd.read_csv(filename, low_memory=False)  # 读取csv文件
     print("数据行数"+str(data.shape[0]))
@@ -88,15 +91,15 @@ def ExcavationData(period, step, resultname):
         start = data.iloc[Indexs, [1]][0]
         end = data.iloc[Indexs + period, [1]][0]
 
-        # Start = time.mktime(time.strptime(start, '%Y-%m-%d %H:%M:%S.000'))
-        # End = time.mktime(time.strptime(end, '%Y-%m-%d %H:%M:%S.000'))
+        Start = time.mktime(time.strptime(start, '%Y-%m-%d %H:%M:%S.000'))
+        End = time.mktime(time.strptime(end, '%Y-%m-%d %H:%M:%S.000'))
 
-        Start = time.mktime(time.strptime(start, '%Y/%m/%d %H:%M:%S'))
-        End = time.mktime(time.strptime(end, '%Y/%m/%d %H:%M:%S'))
+        # Start = time.mktime(time.strptime(start, '%Y/%m/%d %H:%M:%S'))
+        # End = time.mktime(time.strptime(end, '%Y/%m/%d %H:%M:%S'))
 
         if(End - Start<=Interval):
             # print("可以提取处理+1")
-            temp=data.iloc[Indexs:Indexs+period, 1:]
+            temp= data.iloc[Indexs:Indexs+period, 1:]
             lisZero = [int(Indexs/step)]*period
             temp.index = lisZero
 
@@ -106,12 +109,26 @@ def ExcavationData(period, step, resultname):
 
         Indexs += step
 
-    print(example.head(120))
+    # print(example.head(120))
     example.to_csv(result + resultname, mode='a', encoding='utf-8')
 
     print("我们以为"+str(period)+"s为时间段，间隔"+str(step)+"s提取时序数据")
     print("已经处理完"+str(resultname)+"文件")
 
+# def PreChangeTag(filename, period):
+#     """
+#     :param filename: 文件名
+#     :param period: 间隔
+#     :return:
+#     修改文件tag
+#     """
+#     filepath = outputs + filename
+#     data = pd.read_csv(filepath, low_memory=False)  # 读取csv文件
+#     print("数据行数" + str(data.shape[0]))
+#
+#     Indexs = 0
+#     while (Indexs + period < len(data)):
+#         print("")
 
 if __name__ == '__main__':
 
@@ -124,8 +141,8 @@ if __name__ == '__main__':
     #     filename = output + suffix[i]+'.csv'
     #     ExtractDatas(filename, outputs + suffix[i]+'.csv') # 读取csv文件
 
-    now1 = datetime.date(2020, 12, 10).strftime('%Y/%m/%d')
-    start1 = datetime.date(2020, 12, 7).strftime('%Y/%m/%d')
+    now1 = datetime.date(2020,12, 7).strftime('%Y/%m/%d')
+    start1 = datetime.date(2020, 11, 2).strftime('%Y/%m/%d')
 
     FileList = pd.date_range(start1, now1).strftime("%Y.%m.%d").to_list()
 
@@ -136,9 +153,7 @@ if __name__ == '__main__':
             break
         payloadsome = payloadsome.replace(FileList[i], FileList[i + 1])
         print(payloadsome)
-
+        # PreChangeTag(60, payloadsome + '.csv')
         ExcavationData(60, 30, payloadsome + '.csv')
-        break
-
 
     print('Finish')
