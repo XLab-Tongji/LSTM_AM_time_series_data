@@ -9,6 +9,10 @@ result/
 12.01~12/
 .idea/
 
+#WebStorm
+node_modules/
+package-lock.json
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
