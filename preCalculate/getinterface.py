@@ -11,9 +11,9 @@ headers = {
 }
 
 Interesting = ['t', '100006', '101465', '860424', '100395',
-             '100004', '100003', '100005', '100002', '101403', '101404']
+             '100004', '100003', '100005', '100002', '101403', '101404','101420']
 
-payloadsome = "(([t]>'2021/01/31 00:00:00') and ([t]<'2021/01/31 23:59:59') and ([wm]>0))"
+payloadsome = "(([t]>'2021/12/07 00:00:00') and ([t]<'2021/12/07 23:59:59') and ([wm]>0))"
 
 outputs = '../Data/ExtractCSV/'
 
@@ -42,12 +42,16 @@ def ExtractDatas(data,outFile):
     :return:
     提取我们感兴趣的信息
     """
+    print(data)
     for k1, v1 in data.items():
 
         if(k1=='data'):
-            df=pd.DataFrame(v1,columns=Interesting)
+
+
+            df = pd.DataFrame(v1, columns=Interesting)
             df.columns=["时间", "state", "气垫仓压力", "泥浆液位", "贯入度",
-                           "刀盘扭矩", "刀盘转速", "总推进力", "推进速度", "进浆流量", "出浆流量"]
+                           "刀盘扭矩", "刀盘转速", "总推进力", "推进速度", "进浆流量", "出浆流量","泥水仓压力"]
+
 
             WorkData = df[(df['state'] < str(1.000001)) & (df['state'] >= str(1.00000))]
             WorkData.to_csv(outputs + outFile+'.csv', mode='a', encoding='utf-8')
@@ -60,7 +64,7 @@ if __name__ == '__main__':
 
     # now1 = datetime.datetime.now().date().strftime('%Y/%m/%d')
     now1 = datetime.date(2021, 3, 31).strftime('%Y/%m/%d')
-    start1 = datetime.date(2021, 1, 31).strftime('%Y/%m/%d')
+    start1 = datetime.date(2020, 12, 7).strftime('%Y/%m/%d')
 
     holiday = pd.date_range(start1,now1).strftime("%Y/%m/%d").to_list()
     FileList = pd.date_range(start1,now1).strftime("%Y.%m.%d").to_list()
@@ -79,6 +83,7 @@ if __name__ == '__main__':
         data = json.loads(response.text)
 
         ExtractDatas(data, FileList[i + 1])
+        break
 
 
     print("程序运行结束")
